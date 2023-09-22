@@ -1,0 +1,14 @@
+{
+  "name": "New Tab Here",
+	"short_name": "new-tab-here",
+  "manifest_version": 2,
+  "version": "1.0",
+  "description": "Open a new tab at a specific location in a row of tabs",
+	"permissions": [
+    "activeTab",
+    "tabs"
+  ],
+  "background": {
+    "scripts": [ "new-tab-here.js" ]
+  }
+}
