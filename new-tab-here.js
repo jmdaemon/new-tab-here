@@ -22,41 +22,23 @@ function open_new_tab(at) {
 }
 
 // Open new tab after the current active tab
-function open_after() {
-  open_new_tab(1);
-}
+function open_after() { open_new_tab(1); }
 
 // Open new tab before the current active tab
-function open_before() {
-  open_new_tab(-1);
-}
+function open_before() { open_new_tab(-1); }
 
 //
 // Main
 //
 
-//function load_extension() {
-function new_tab_listener() {
-  // Create the shortcut listener
-  document.addEventListener('keydown', (event) => {
-    if (event.shiftKey) {
-      if (event.key == '<') { open_before(); }
-      if (event.key == '>') { open_after(); }
-    }
-  }, false);
+const commands = {
+  'open-tab-before': open_before,
+  'open-tab-after': open_after,
+};
+
+function main() {
+  for (const [name, callback] of Object.entries(commands))
+    browser.commands.onCommand.addListener((command) => { if (command == name) callback(); });
 }
 
-//document.addEventListener("DOMContentLoaded", load_extension);
-
-//browser.commands.onCommand.addListener(open_before, "open-tab-before");
-//browser.commands.onCommand.addListener(open_after, "open-tab-after");
-
-browser.commands.onCommand.addListener((command) => {
-  if (command == 'open-tab-before') { console.log(command); open_before(); }
-});
-browser.commands.onCommand.addListener((command) => {
-  if (command == 'open-tab-after') { console.log(command); open_after(); }
-});
-
-//browser.commands.onCommand.addListener(new_tab_listener, "open-tab-before");
-//browser.commands.onCommand.addListener(new_tab_listener, "open-tab-after");
+main();
