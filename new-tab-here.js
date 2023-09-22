@@ -1,24 +1,15 @@
-function open_new_tab(at) {
-  //let active_tab = browser.tabs.getCurrent();
-  let active_tab = browser.tabs.query({active: true, currentWindow: true});
-  console.log(active_tab);
-  active_tab.then(
-  (active_tab) => {
-    var active_tab = active_tab[0];
-    if (active_tab == null) {
-      console.log("Active tab is null");
-      //console.log(active_tab);
-      return;
-    }
-    let here = active_tab.index + at;
-    let new_tab_settings = {
-      active: true,
-      index: here,
-    };
+async function open_new_tab(at) {
+  let active_tab = (await browser.tabs.query({active: true, currentWindow: true}))[0];
+  if (active_tab == null)
+    throw Error("[New Tab Here]: No active tab selected.");
 
-    browser.tabs.create(new_tab_settings);
-  },
-  (error) => { console.log(error); });
+  let here = active_tab.index + at;
+  let new_tab_settings = {
+    active: true,
+    index: here,
+  };
+
+  browser.tabs.create(new_tab_settings);
 }
 
 // Open new tab after the current active tab
@@ -27,9 +18,7 @@ function open_after() { open_new_tab(1); }
 // Open new tab before the current active tab
 function open_before() { open_new_tab(-1); }
 
-//
 // Main
-//
 
 const commands = {
   'open-tab-before': open_before,
