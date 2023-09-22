@@ -10,5 +10,21 @@
   ],
   "background": {
     "scripts": [ "new-tab-here.js" ]
-  }
+  },
+  "commands": {
+		"open-tab-before": {
+			"suggested_key": {
+				"default": "Ctrl+Comma",
+				"linux": "Ctrl+Comma"
+			},
+			"description": "Open tab before current active tab"
+		},
+		"open-tab-after": {
+			"suggested_key": {
+				"default": "Ctrl+Period",
+				"linux": "Ctrl+Period"
+			},
+			"description": "Open tab after current active tab"
+		}
+	}
 }
